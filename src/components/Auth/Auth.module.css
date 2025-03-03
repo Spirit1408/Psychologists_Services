@@ -1,0 +1,28 @@
+.authBtns {
+    display: flex;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.login {
+    border: 1px solid var(--primary-light);
+    padding: 14px 39px;
+    background-color: transparent;
+    border-radius: 30px;
+    transition: border-color 0.3s ease-in-out;
+    &:hover {
+        border: 1px solid var(--primary-color);
+    }
+}
+
+.register {
+    color: var(--secondary-color);
+    background-color: var(--accent-color);
+    padding: 14px 40px;
+    border: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease-in-out;
+    &:hover {
+        background-color: var(--accent-color-hover);
+    }
+}
