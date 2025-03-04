@@ -1,0 +1,35 @@
+.modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:rgba(25, 26, 21, 0.6);
+    z-index: 100;
+}
+
+.modal {
+    position: relative;
+    max-width: 566px;
+    width: 100%;
+    background-color: var(--secondary-color);
+    border-radius: 30px;
+    padding: 64px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+}
+
+.closeIcon {
+    width: 32px;
+    height: 32px;
+    fill: var(--primary-color);
+}
