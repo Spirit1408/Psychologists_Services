@@ -1,0 +1,60 @@
+.title {
+    font-weight: 500;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.text {
+    color: rgba(25, 26, 21, 0.5);
+    margin-bottom: 40px;
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 40px;
+}
+
+.input {
+    width: 100%;
+    padding: 16px 18px;
+    outline: none;
+    border: 1px solid rgba(25, 26, 21, 0.1);
+    border-radius: 12px;
+}
+
+.inputPassContainer {
+    position: relative;
+}
+
+.showPassBtn {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    transform: translateY(-50%);
+}
+
+.showPassIcon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+}
+
+.submitBtn {
+    dispay: block;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--accent-color);
+    border-radius: 30px;
+    color: var(--secondary-color);
+    font-weight: 500;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.submitBtn:hover {
+    background-color: var(--accent-color-hover);
+}

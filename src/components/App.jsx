@@ -1,8 +1,8 @@
 import { Header } from "./Header/Header";
 import { Home } from "../pages/Home/Home";
 import { Route, Routes } from "react-router-dom";
-import { LogInForm } from "./LogInForm/LogInForm";
 import { Modal } from "./Modal/Modal";
+import { RegisterForm } from "./RegisterForm/RegisterForm";
 
 export const App = () => {
 	return (
@@ -15,9 +15,9 @@ export const App = () => {
 				</Routes>
 			</main>
 
-			{/* <Modal>
-				<LogInForm />
-			</Modal> */}
+			<Modal>
+				<RegisterForm />
+			</Modal>
 		</>
 	);
 };
