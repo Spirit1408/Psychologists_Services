@@ -3,5 +3,8 @@
     <symbol id="icon-check" viewBox="0 0 32 32">
       <path d="M8 13.333 5.333 16l8 8 13.333-13.333L23.999 8 13.332 18.667l-5.333-5.333z" />
     </symbol>
+    <symbol id="icon-user" viewBox="0 0 32 32">
+      <path d="M16 0a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 20c8.84 0 16 3.58 16 8v4H0v-4c0-4.42 7.16-8 16-8z"/>
+    </symbol>
   </defs>
 </svg>

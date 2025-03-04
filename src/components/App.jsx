@@ -1,5 +1,6 @@
 import { Header } from "./Header/Header";
 import { Home } from "../pages/Home/Home";
+import { Route, Routes } from "react-router-dom";
 
 export const App = () => {
 	return (
@@ -7,7 +8,9 @@ export const App = () => {
 			<Header />
 
 			<main>
-				<Home />
+				<Routes>
+					<Route path="/" element={<Home />} />
+				</Routes>
 			</main>
 		</>
 	);

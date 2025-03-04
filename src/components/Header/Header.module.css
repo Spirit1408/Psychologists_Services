@@ -46,11 +46,16 @@
         height: 8px;
         border-radius: 50%;
         opacity: 0;
-        background-color: var(--accent-color);
-        transition: opacity 0.3s ease-in-out;
+        background-color: var(--accent-light);
+        transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
         pointer-events: none;
     }
     &:hover::after {
         opacity: 1;
     }
+}
+
+.active::after {
+    background-color: var(--accent-color);
+    opacity: 1;
 }

@@ -1,0 +1,40 @@
+.userInfoContainer {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.iconContainer {
+    display: flex;
+    padding: 12px;
+    background-color: var(--accent-color);
+    border-radius: 10px;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    fill: var(--secondary-color);
+}
+
+.userName {
+    font-weight: 500;
+}
+
+.logout {
+    border: 1px solid var(--primary-light);
+    border-radius: 30px;
+    padding: 14px 39px;
+    font-weight: 500;
+    background-color: transparent;
+    transition: border-color 0.3s ease-in-out;
+    &:hover {
+        border: 1px solid var(--primary-color);
+    }
+}
