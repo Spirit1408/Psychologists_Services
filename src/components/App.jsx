@@ -1,8 +1,8 @@
 import { Header } from "./Header/Header";
 import { Home } from "../pages/Home/Home";
 import { Route, Routes } from "react-router-dom";
-import { Modal } from "./Modal/Modal";
-import { RegisterForm } from "./RegisterForm/RegisterForm";
+import { Psychologists } from "../pages/Psychologists/Psychologists";
+import { NotFoundPage } from "../pages/NotFoundPage/NotFoundPage";
 
 export const App = () => {
 	return (
@@ -12,12 +12,10 @@ export const App = () => {
 			<main>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/psychologists" element={<Psychologists />} />
+					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</main>
-
-			<Modal>
-				<RegisterForm />
-			</Modal>
 		</>
 	);
 };

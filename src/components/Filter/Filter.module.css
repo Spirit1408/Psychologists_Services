@@ -1,0 +1,69 @@
+.label {
+    display: block;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    color: #8a8a89;
+    margin-bottom: 8px;
+}
+
+.customSelect {
+    position: relative;
+    max-width: 226px;
+}
+
+.selectTrigger {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow {
+    width: 20px;
+    height: 20px;
+    fill: var(--secondary-color);
+    transition: transform 0.2s ease-in-out;
+}
+
+.arrow.active {
+    transform: rotate(180deg);
+}
+
+.optionsContainer {
+    position: absolute;
+    top: calc(100% + 8px);
+    width: 100%;
+    padding: 14px 18px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 20px 69px 0 rgba(0, 0, 0, 0.07);
+    z-index: 10;
+    overflow-y: auto;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.option {
+    cursor: pointer;
+    color: rgba(25, 26, 21, 0.3);
+    transition: color 0.2s ease-in-out;
+}
+
+.option:hover {
+    color: var(--primary-color);
+}
+
+.option.selected {
+    color: var(--primary-color);
+}
