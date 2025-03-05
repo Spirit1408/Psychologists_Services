@@ -1,0 +1,26 @@
+.cardList {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    justify-content: center;
+}
+
+.cardListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.loadMore {
+    margin: 0 auto;
+    padding: 14px 48px;
+    border-radius: 30px;
+    border: none;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    font-weight: 500;
+    transition: background-color 0.3s ease-in-out;
+    &:hover {
+        background-color: var(--accent-color-hover);
+    }
+}

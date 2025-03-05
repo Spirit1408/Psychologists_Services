@@ -1,7 +1,16 @@
 import css from "./RegisterForm.module.css";
+import eye from "../../images/eye.svg";
 import eyeOff from "../../images/eye-off.svg";
+import { useState } from "react";
 
 export const RegisterForm = () => {
+	const [showPassword, setShowPassword] = useState(false);
+
+	const togglePasswordVisibility = () => {
+		setShowPassword((prev) => !prev);
+	};
+
+
 	return (
 		<>
 			<h2 className={css.title}>Registration</h2>
@@ -19,15 +28,15 @@ export const RegisterForm = () => {
 
 					<div className={css.inputPassContainer}>
 						<input
-							type="password"
+							type={showPassword ? "text" : "password"}
 							placeholder="Password"
 							className={css.input}
 						/>
 
-						<button type="button" className={css.showPassBtn}>
+						<button type="button" className={css.showPassBtn} onClick={togglePasswordVisibility}>
 							<img
-								src={eyeOff}
-								alt="close eye icon"
+								src={showPassword ? eye : eyeOff}
+								alt={showPassword ? "eye" : "eye-off"}
 								className={css.showPassIcon}
 							/>
 						</button>

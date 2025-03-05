@@ -1,0 +1,209 @@
+.card {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    background-color: var(--secondary-color);
+    border-radius: 24px;
+}
+
+.photoContainer {
+    position: relative;
+    border: 2px solid rgba(84, 190, 150, 0.2);
+    border-radius: 30px;
+    padding: 12px;
+    flex-shrink: 0;
+    height: fit-content;
+}
+
+.status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-color: #38cd3e;
+}
+
+.photo {
+    width: 96px;
+}
+
+.specInfoContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.specInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.specTitle {
+    font-weight: 500;
+    color: #8a8a89;
+}
+
+.specName {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.specInfoNum {
+    display: flex;
+    align-items: center;
+}
+
+.rating {
+    display: flex;
+    position: relative;
+    gap: 8px;
+    align-items: center;
+    font-weight: 500;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -16px;
+        width: 1px;
+        height: 100%;
+        background-color: var(--primary-light);
+    }
+}
+
+.price {
+    font-weight: 500;
+    margin-right: 28px;
+    margin-left: 32px;
+    span {
+        color: #38cd3e;
+    }
+}
+
+.favBtn {
+    background-color: transparent;
+    border: none;
+}
+
+.favIcon {
+    width: 26px;
+    height: 26px;
+    fill: transparent;
+    stroke: var(--primary-color);
+    transition: fill 0.3s ease-in-out, stroke 0.3s ease-in-out;
+    &:hover {
+        fill: var(--accent-color);
+        stroke: var(--accent-color);
+    }
+}
+
+.favIcon.active {
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
+}
+
+.specExp {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.specExpItem {
+    padding: 8px 16px;
+    background-color: var(--background-color);
+    border-radius: 24px;
+}
+
+.specExpItemTitle {
+    font-weight: 500;
+    color: #8a8a89;
+    span {
+        color: var(--primary-color);
+    }
+}
+
+.specDesc {
+    margin-bottom: 14px;
+    color: rgba(25, 26, 21, 0.5);
+}
+
+.readMoreBtn {
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.specReviews {
+    margin-top: 34px;
+}
+
+.specReviewsList {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.revContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.initialRev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    width: 44px;
+    height: 44px;
+    background-color: var(--accent-light);
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--accent-color);
+}
+
+.revInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.revName {
+    font-weight: 500;
+}
+
+.revRating {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.revText {
+    color: rgba(25, 26, 21, 0.5);
+}
+
+.makeAppBtn {
+    border-radius: 30px;
+    padding: 14px 32px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+    &:hover {
+        background-color: var(--accent-color-hover);
+    }
+}

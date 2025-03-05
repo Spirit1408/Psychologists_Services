@@ -46,7 +46,7 @@ export const Filter = () => {
 	}, []);
 
 	return (
-		<>
+		<div>
 			<p className={css.label}>Filters</p>
 
 			<div className={css.customSelect} ref={dropdownRef}>
@@ -72,6 +72,6 @@ export const Filter = () => {
 					</div>
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
