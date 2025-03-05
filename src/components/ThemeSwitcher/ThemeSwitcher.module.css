@@ -1,0 +1,41 @@
+.themeSwitcherContainer {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px;
+    width: fit-content;
+}
+
+.themeSwitcher {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.themeSwitcherBtn {
+    display: flex;
+    background-color: transparent;
+    border: none;
+}
+
+.color {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+}
+
+.green {
+    background-color: #38cd3e;
+}
+
+.blue {
+    background-color: #3b82f6;
+}
+
+.orange {
+    background-color: #f59e0b;
+}
