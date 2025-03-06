@@ -8,7 +8,7 @@
 
 .photoContainer {
     position: relative;
-    border: 2px solid rgba(84, 190, 150, 0.2);
+    border: 2px solid var(--accent-light);
     border-radius: 30px;
     padding: 12px;
     flex-shrink: 0;
@@ -28,6 +28,7 @@
 
 .photo {
     width: 96px;
+    border-radius: 15px;
 }
 
 .specInfoContainer {
