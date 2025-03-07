@@ -1,10 +1,14 @@
 import css from "./Filter.module.css";
 import arrow from "../../images/select-arrow.svg";
 import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSortType } from "./../../redux/psychologists/selectors";
+import { setSortType } from "./../../redux/psychologists/slice";
 
 export const Filter = () => {
+	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
-	const [selectedOption, setSelectedOption] = useState("desc");
+	const selectedOption = useSelector(selectSortType);
 	const dropdownRef = useRef(null);
 
 	const options = [
@@ -22,13 +26,13 @@ export const Filter = () => {
 	};
 
 	const handleOptionClick = (value) => {
-		setSelectedOption(value);
+		dispatch(setSortType(value));
 		setIsOpen(false);
 	};
 
 	const getSelectedLabel = () => {
 		return (
-			options.find((option) => option.value === selectedOption)?.label || ""
+			options.find((option) => option.value === selectedOption).label
 		);
 	};
 
@@ -53,7 +57,11 @@ export const Filter = () => {
 				<div className={css.selectTrigger} onClick={toggleDropdown}>
 					<span>{getSelectedLabel()}</span>
 
-					<img className={`${css.arrow} ${isOpen ? css.active : ""}`} src={arrow} alt="arrow icon" />
+					<img
+						className={`${css.arrow} ${isOpen ? css.active : ""}`}
+						src={arrow}
+						alt="arrow icon"
+					/>
 				</div>
 
 				{isOpen && (

@@ -8,6 +8,7 @@ const initialState = {
 	lastKey: null,
 	hasMore: true,
 	pageSize: 3,
+	sortType: "desc",
 };
 
 const psychologistsSlice = createSlice({
@@ -20,6 +21,9 @@ const psychologistsSlice = createSlice({
 			state.lastKey = null;
 			state.hasMore = true;
 		},
+		setSortType: (state, action) => {
+			state.sortType = action.payload;
+		}
 	},
 	extraReducers: (builder) => {
 		builder
@@ -55,5 +59,5 @@ const psychologistsSlice = createSlice({
 	},
 });
 
-export const { clearPsychologists } = psychologistsSlice.actions;
+export const { clearPsychologists, setSortType } = psychologistsSlice.actions;
 export default psychologistsSlice.reducer;
