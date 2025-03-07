@@ -24,3 +24,7 @@
         background-color: var(--accent-color-hover);
     }
 }
+
+.spinner{
+    color: var(--accent-color);
+}

@@ -1,54 +1,46 @@
 import css from "./CardList.module.css";
 import { Card } from "../Card/Card.jsx";
-import { useState, useEffect } from "react";
-import { specialistsRef } from "../../firebase";
-import { onValue } from "firebase/database";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	selectIsLoading,
+	selectHasMore,
+	selectError,
+	selectPsychologists,
+} from "../../redux/psychologists/selectors.js";
+import { useEffect } from "react";
+import {
+	getMorePsychologists,
+	getPsychologists,
+} from "../../redux/psychologists/operations.js";
+import { PuffLoader } from "react-spinners";
 
 export const CardList = () => {
-	const [specialists, setSpecialists] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [visibleCount, setVisibleCount] = useState(3);
+	const dispatch = useDispatch();
+	const specialists = useSelector(selectPsychologists);
+	const loading = useSelector(selectIsLoading);
+	const hasMore = useSelector(selectHasMore);
+	const error = useSelector(selectError);
 
 	useEffect(() => {
-		const specialistsListener = onValue(
-			specialistsRef,
-			(snapshot) => {
-				if (snapshot.exists()) {
-					const specialistsData = snapshot.val();
-					const specialistsArray = Object.keys(specialistsData).map((key) => ({
-						id: key,
-						...specialistsData[key],
-					}));
-					setSpecialists(specialistsArray);
-				} else {
-					setSpecialists([]);
-				}
-				setLoading(false);
-			},
-			(error) => {
-				console.error("Error listening to specialists:", error);
-				setLoading(false);
-			},
-		);
-
-		return () => {
-			specialistsListener();
-		};
-	}, []);
+		dispatch(getPsychologists());
+	}, [dispatch]);
 
 	const loadMore = () => {
-		setVisibleCount((prev) => prev + 3);
+		if (!hasMore) return;
+		dispatch(getMorePsychologists());
 	};
 
 	return (
 		<div className={css.cardList}>
-			{loading ? (
-				<p>Loading specialists...</p>
+			{error && <p>{error}</p>}
+
+			{loading && specialists.length === 0 ? (
+				<PuffLoader color="var(--accent-color)" cssOverride={{ margin: "0 auto" }} />
 			) : (
 				<>
 					<ul className={css.cardListContainer}>
 						{specialists.length > 0 ? (
-							specialists.slice(0, visibleCount).map((specialist) => (
+							specialists.map((specialist) => (
 								<li key={specialist.id}>
 									<Card specialist={specialist} />
 								</li>
@@ -58,7 +50,9 @@ export const CardList = () => {
 						)}
 					</ul>
 
-					{visibleCount < specialists.length && (
+					{loading && <PuffLoader color="var(--accent-color)" cssOverride={{ margin: "0 auto" }} />}
+
+					{hasMore && !loading && (
 						<button type="button" className={css.loadMore} onClick={loadMore}>
 							Load more
 						</button>

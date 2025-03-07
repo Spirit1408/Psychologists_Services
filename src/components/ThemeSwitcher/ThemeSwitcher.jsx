@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import css from "./ThemeSwitcher.module.css";
 
 export const ThemeSwitcher = () => {
 
-    const themeSwitch = (color) => {
+	useEffect(() => {
+		const savedTheme = localStorage.getItem("theme");
+		if (savedTheme) {
+			themeSwitch(savedTheme);
+		}
+	}, []);
+
+	const themeSwitch = (color) => {
+		localStorage.setItem("theme", color);
+
         switch (color) {
             case "blue":
                 document.documentElement.classList.remove("theme-green");
