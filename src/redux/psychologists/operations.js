@@ -18,32 +18,37 @@ const createQueryBySortType = (sortType, pageSize, lastKey = null) => {
 		case "desc": 
 			queryConstraints.push(orderByChild("name"));
 			queryConstraints.push(limitToFirst(pageSize)); 
-			if (lastKey) queryConstraints.push(startAfter(lastKey));
+			if (lastKey) queryConstraints.push(startAfter(lastKey.value, lastKey.id));
 			break;
 
 		case "asc": 
 			queryConstraints.push(orderByChild("name"));
 			queryConstraints.push(limitToLast(pageSize));
-			if (lastKey) queryConstraints.push(endBefore(lastKey)); 
+			if (lastKey) queryConstraints.push(endBefore(lastKey.value, lastKey.id)); 
 			break;
 
 		case "less":
 			queryConstraints.push(orderByChild("price_per_hour"));
 			queryConstraints.push(limitToFirst(pageSize));
-			if (lastKey) queryConstraints.push(startAfter(lastKey));
+			if (lastKey) queryConstraints.push(startAfter(lastKey.value, lastKey.id));
 			break;
 		
-		case "more": // Цена: от большей к меньшей
+		case "more":
 			queryConstraints.push(orderByChild("price_per_hour"));
-			queryConstraints.push(limitToLast(pageSize)); // Берём с конца
-			if (lastKey) queryConstraints.push(endBefore(lastKey)); // Двигаемся назад
+			queryConstraints.push(limitToLast(pageSize));
+			if (lastKey) queryConstraints.push(endBefore(lastKey.value, lastKey.id)); 
 			break;
 		
 		case "pop":
+			queryConstraints.push(orderByChild("rating"));
+			queryConstraints.push(limitToLast(pageSize));
+			if (lastKey) queryConstraints.push(endBefore(lastKey.value, lastKey.id));
+			break;
+		
 		case "nopop":
 			queryConstraints.push(orderByChild("rating"));
 			queryConstraints.push(limitToFirst(pageSize));
-			if (lastKey) queryConstraints.push(startAfter(lastKey));
+			if (lastKey) queryConstraints.push(startAfter(lastKey.value, lastKey.id));
 			break;
 
 		case "all":
@@ -90,18 +95,19 @@ const getLastKeyBySortType = (items, sortType) => {
 	switch (sortType) {
 		case "desc":
 		case "asc":
-			return lastItem.name;
+			return { value: lastItem.name, id: lastItem.id };
 		case "less":
 		case "more":
-			return lastItem.price_per_hour; 
+			return { value: lastItem.price_per_hour, id: lastItem.id };
 		case "pop":
 		case "nopop":
-			return lastItem.rating; 
+			return { value: lastItem.rating, id: lastItem.id };
 		case "all":
 		default:
 			return lastItem.id;
 	}
 };
+
 
 export const getPsychologists = createAsyncThunk(
 	"psychologists/getPsychologists",
