@@ -14,7 +14,7 @@ export const Card = ({ specialist }) => {
 	const toggleReviews = () => {
 		setIsReviewsOpen((prev) => !prev);
 	};
-
+	
 	return (
 		<div className={css.card}>
 			<div className={css.photoContainer}>

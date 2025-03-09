@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+	endBefore,
 	get,
 	limitToFirst,
+	limitToLast,
 	orderByChild,
 	orderByKey,
 	query,
@@ -9,83 +11,93 @@ import {
 } from "firebase/database";
 import { specialistsRef } from "../../firebase";
 
-// Helper function to create the appropriate query based on sort type
 const createQueryBySortType = (sortType, pageSize, lastKey = null) => {
-	let queryConstraints = [limitToFirst(pageSize)];
+	let queryConstraints = [];
 
 	switch (sortType) {
-		case "desc": // A to Z (name descending)
-			queryConstraints.unshift(orderByChild("name"));
+		case "desc": 
+			queryConstraints.push(orderByChild("name"));
+			queryConstraints.push(limitToFirst(pageSize)); 
+			if (lastKey) queryConstraints.push(startAfter(lastKey));
 			break;
-		case "asc": // Z to A (name ascending)
-			queryConstraints.unshift(orderByChild("name"));
-			break;
-		case "less": // Price descending
-		case "more": // Price ascending
-			queryConstraints.unshift(orderByChild("price_per_hour"));
-			break;
-		case "pop": // Popular (rating descending)
-		case "nopop": // Not popular (rating ascending)
-			queryConstraints.unshift(orderByChild("rating"));
-			break;
-		case "all": // No sorting (by id)
-		default:
-			queryConstraints.unshift(orderByKey());
-			break;
-	}
 
-	// Add startAfter constraint if lastKey is provided
-	if (lastKey) {
-		queryConstraints.splice(1, 0, startAfter(lastKey));
+		case "asc": 
+			queryConstraints.push(orderByChild("name"));
+			queryConstraints.push(limitToLast(pageSize));
+			if (lastKey) queryConstraints.push(endBefore(lastKey)); 
+			break;
+
+		case "less":
+			queryConstraints.push(orderByChild("price_per_hour"));
+			queryConstraints.push(limitToFirst(pageSize));
+			if (lastKey) queryConstraints.push(startAfter(lastKey));
+			break;
+		
+		case "more": // Цена: от большей к меньшей
+			queryConstraints.push(orderByChild("price_per_hour"));
+			queryConstraints.push(limitToLast(pageSize)); // Берём с конца
+			if (lastKey) queryConstraints.push(endBefore(lastKey)); // Двигаемся назад
+			break;
+		
+		case "pop":
+		case "nopop":
+			queryConstraints.push(orderByChild("rating"));
+			queryConstraints.push(limitToFirst(pageSize));
+			if (lastKey) queryConstraints.push(startAfter(lastKey));
+			break;
+
+		case "all":
+		default:
+			queryConstraints.push(orderByKey());
+			queryConstraints.push(limitToFirst(pageSize));
+			if (lastKey) queryConstraints.push(startAfter(lastKey));
+			break;
 	}
 
 	return query(specialistsRef, ...queryConstraints);
 };
 
-// Helper function to process and sort data based on sort type
 const processDataBySortType = (data, sortType) => {
 	const items = Object.keys(data).map((key) => ({
 		id: key,
 		...data[key],
 	}));
 
-	// Apply client-side sorting based on sortType
 	switch (sortType) {
-		case "desc": // A to Z (name descending)
+		case "desc": 
 			return items.sort((a, b) => a.name.localeCompare(b.name));
-		case "asc": // Z to A (name ascending)
-			return items.sort((a, b) => b.name.localeCompare(a.name));
-		case "less": // Price descending
-			return items.sort((a, b) => b.price_per_hour - a.price_per_hour);
-		case "more": // Price ascending
+		case "asc": 
+			return items.sort((a, b) => a.name.localeCompare(b.name)).reverse();
+		case "less": 
 			return items.sort((a, b) => a.price_per_hour - b.price_per_hour);
-		case "pop": // Popular (rating descending)
+		case "more": 
+			return items.sort((a, b) => b.price_per_hour - a.price_per_hour);
+		case "pop": 
 			return items.sort((a, b) => b.rating - a.rating);
-		case "nopop": // Not popular (rating ascending)
+		case "nopop": 
 			return items.sort((a, b) => a.rating - b.rating);
-		case "all": // No sorting (by id)
+		case "all":
 		default:
 			return items;
 	}
 };
 
-// Helper function to get the appropriate last key for pagination
 const getLastKeyBySortType = (items, sortType) => {
-	if (items.length === 0) return null;
+	if (!items || items.length === 0) return null;
 
 	const lastItem = items[items.length - 1];
 
 	switch (sortType) {
-		case "desc": // A to Z
-		case "asc": // Z to A
+		case "desc":
+		case "asc":
 			return lastItem.name;
-		case "less": // Price descending
-		case "more": // Price ascending
-			return lastItem.price_per_hour;
-		case "pop": // Popular
-		case "nopop": // Not popular
-			return lastItem.rating;
-		case "all": // No sorting
+		case "less":
+		case "more":
+			return lastItem.price_per_hour; 
+		case "pop":
+		case "nopop":
+			return lastItem.rating; 
+		case "all":
 		default:
 			return lastItem.id;
 	}
