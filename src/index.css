@@ -1,58 +1,88 @@
 :root {
-    --primary-color: #191a15;
-    --primary-light: rgba(25, 26, 21, 0.2);
-    --secondary-color: #fbfbfb;
-    --accent-color: #54be96;
-    --accent-color-hover: #36a379;
-    --accent-light: rgba(84, 190, 150, 0.2);
-    --background-color: #f3f3f3;
+	--primary-color: #191a15;
+	--primary-light: rgba(25, 26, 21, 0.2);
+	--secondary-color: #fbfbfb;
+	--accent-color: #54be96;
+	--accent-color-hover: #36a379;
+	--accent-light: rgba(84, 190, 150, 0.2);
+	--background-color: #f3f3f3;
 }
 
 .theme-blue {
-    --accent-color: #3470ff;
-    --accent-color-hover: #255ee8;
-    --accent-light: rgba(52, 112, 255, 0.2);
+	--accent-color: #3470ff;
+	--accent-color-hover: #255ee8;
+	--accent-light: rgba(52, 112, 255, 0.2);
 }
 
 .theme-orange {
-    --accent-color: #fc832c;
-    --accent-color-hover: #f37113;
-    --accent-light: rgba(252, 131, 44, 0.2);
+	--accent-color: #fc832c;
+	--accent-color-hover: #f37113;
+	--accent-light: rgba(252, 131, 44, 0.2);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-    background-color: var(--background-color);
-    color: var(--primary-color);
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    padding-left: 128px;
-    padding-right: 128px;
-    max-width: 1440px;
-    margin: 0 auto;
+	background-color: var(--background-color);
+	color: var(--primary-color);
+	font-family: "Inter", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding-left: 16px;
+	padding-right: 16px;
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
 }
 
 a {
-    text-decoration: inherit;
-    color: inherit;
+	text-decoration: inherit;
+	color: inherit;
 }
 
 button {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 img {
-    display: block;
-    max-width: 100%;
+	display: block;
+	max-width: 100%;
+	height: auto;
 }
 
 ol,
 ul {
-    list-style: none;
+	list-style: none;
+}
+
+@media screen and (min-width: 480px) {
+	body {
+		padding-left: 32px;
+		padding-right: 32px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	body {
+		padding-left: 64px;
+		padding-right: 64px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	body {
+		padding-left: 96px;
+		padding-right: 96px;
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	body {
+		padding-left: 128px;
+		padding-right: 128px;
+	}
 }

@@ -1,30 +1,61 @@
 .cardList {
-    display: flex;
-    flex-direction: column;
-    gap: 64px;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	justify-content: center;
 }
 
 .cardListContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
 }
 
 .loadMore {
-    margin: 0 auto;
-    padding: 14px 48px;
-    border-radius: 30px;
-    border: none;
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    font-weight: 500;
-    transition: background-color 0.3s ease-in-out;
-    &:hover {
-        background-color: var(--accent-color-hover);
-    }
+	margin: 0 auto;
+	padding: 12px 32px;
+	border-radius: 30px;
+	border: none;
+	background-color: var(--accent-color);
+	color: var(--secondary-color);
+	font-weight: 500;
+	font-size: 14px;
+	transition: background-color 0.3s ease-in-out;
+	&:hover {
+		background-color: var(--accent-color-hover);
+	}
 }
 
-.spinner{
-    color: var(--accent-color);
+.spinner {
+	color: var(--accent-color);
+}
+
+@media screen and (min-width: 768px) {
+	.cardList {
+		gap: 48px;
+	}
+
+	.cardListContainer {
+		gap: 28px;
+	}
+
+	.loadMore {
+		padding: 14px 40px;
+		font-size: 15px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.cardList {
+		gap: 64px;
+	}
+
+	.cardListContainer {
+		gap: 32px;
+	}
+
+	.loadMore {
+		padding: 14px 48px;
+		font-size: 16px;
+	}
 }

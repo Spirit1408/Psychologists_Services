@@ -1,124 +1,302 @@
 .hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 78px;
-    padding-bottom: 100px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 60px;
+	gap: 40px;
 }
 
 .heroDesc {
-    max-width: 595px;
+	width: 100%;
 }
 
 .title {
-    font-weight: 600;
-    font-size: 80px;
-    margin-bottom: 20px;
+	font-weight: 600;
+	font-size: 32px;
+	margin-bottom: 16px;
 }
 
 .accent {
-    font-style: italic;
-    color: var(--accent-color);
+	font-style: italic;
+	color: var(--accent-color);
 }
 
 .text {
-    font-weight: 500;
-    font-size: 18px;
-    margin-bottom: 40px;
-    max-width: 510px;
+	font-weight: 500;
+	font-size: 16px;
+	margin-bottom: 24px;
+	width: 100%;
 }
 
 .heroLink {
-    background-color: var(--accent-color);
-    display: inline-flex;
-    align-items: center;
-    gap: 18px;
-    color: var(--secondary-color);
-    padding: 18px 50px;
-    border: none;
-    border-radius: 30px;
-    font-weight: 500;
-    font-size: 20px;
-    transition: background-color 0.3s ease-in-out;
-    &:hover {
-        background-color: var(--accent-color-hover);
-    }
+	background-color: var(--accent-color);
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	color: var(--secondary-color);
+	padding: 14px 30px;
+	border: none;
+	border-radius: 30px;
+	font-weight: 500;
+	font-size: 16px;
+	transition: background-color 0.3s ease-in-out;
+	&:hover {
+		background-color: var(--accent-color-hover);
+	}
 }
 
 .heroImg {
-    position: relative;
-    border-radius: 10px;
+	position: relative;
+	border-radius: 10px;
+	width: 100%;
+	max-width: 320px;
 }
 
 .heroImage {
-    max-width: 464px;
+	width: 100%;
+	border-radius: 10px;
 }
 
 .socialsIcon {
-    position: absolute;
-    top: 40px;
-    right: -40px;
-    width: 59px;
-    height: 59px;
+	position: absolute;
+	top: 20px;
+	right: -20px;
+	width: 40px;
+	height: 40px;
 }
 
 .questionContainer {
-    position: absolute;
-    top: 185px;
-    left: -40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    font-size: 20px;
-    width: 50px;
-    height: 50px;
-    color: var(--secondary-color);
-    background: url(../../images/question.svg) center no-repeat;
+	position: absolute;
+	top: 100px;
+	left: -20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	width: 40px;
+	height: 40px;
+	color: var(--secondary-color);
+	background: url(../../images/question.svg) center / contain no-repeat;
 }
 
 .totalContainer {
-    position: absolute;
-    bottom: 75px;
-    left: -102px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    max-width: 311px;
-    padding: 32px;
-    border-radius: 30px;
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
+	position: absolute;
+	bottom: 40px;
+	left: -40px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	max-width: 240px;
+	padding: 20px;
+	border-radius: 20px;
+	background-color: var(--accent-color);
+	color: var(--secondary-color);
 }
 
 .checkIconContainer {
-    padding: 12px;
-    border-radius: 15px;
-    background-color: var(--secondary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	padding: 8px;
+	border-radius: 12px;
+	background-color: var(--secondary-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .checkIcon {
-    width: 30px;
-    height: 30px;
-    fill: var(--accent-color);
+	width: 20px;
+	height: 20px;
+	fill: var(--accent-color);
 }
 
 .totalInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
 .totalLabel {
-    font-weight: 400;
-    font-size: 14px;
-    color: rgba(251, 251, 251, 0.5);
+	font-weight: 400;
+	font-size: 12px;
+	color: rgba(251, 251, 251, 0.5);
 }
 
 .totalValue {
-    font-weight: 700;
-    font-size: 24px;
+	font-weight: 700;
+	font-size: 18px;
+}
+
+@media screen and (min-width: 480px) {
+	.title {
+		font-size: 40px;
+	}
+
+	.heroImg {
+		max-width: 380px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.hero {
+		padding-top: 60px;
+		padding-bottom: 80px;
+	}
+
+	.title {
+		font-size: 56px;
+		margin-bottom: 18px;
+	}
+
+	.text {
+		font-size: 17px;
+		margin-bottom: 32px;
+	}
+
+	.heroLink {
+		padding: 16px 40px;
+		gap: 16px;
+		font-size: 18px;
+	}
+
+	.heroImg {
+		max-width: 420px;
+	}
+
+	.socialsIcon {
+		width: 50px;
+		height: 50px;
+		right: -30px;
+	}
+
+	.questionContainer {
+		font-size: 18px;
+		width: 45px;
+		height: 45px;
+		left: -30px;
+	}
+
+	.totalContainer {
+		max-width: 280px;
+		padding: 24px;
+		border-radius: 24px;
+		left: -60px;
+	}
+
+	.checkIconContainer {
+		padding: 10px;
+	}
+
+	.checkIcon {
+		width: 24px;
+		height: 24px;
+	}
+
+	.totalLabel {
+		font-size: 13px;
+	}
+
+	.totalValue {
+		font-size: 20px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.hero {
+		flex-direction: row;
+		justify-content: space-between;
+		text-align: left;
+		padding-top: 70px;
+		padding-bottom: 90px;
+		gap: 20px;
+	}
+
+	.heroDesc {
+		max-width: 50%;
+	}
+
+	.title {
+		font-size: 70px;
+		margin-bottom: 20px;
+	}
+
+	.text {
+		font-size: 18px;
+		margin-bottom: 36px;
+		max-width: 510px;
+	}
+
+	.heroLink {
+		padding: 18px 45px;
+		font-size: 20px;
+	}
+
+	.heroImg {
+		max-width: 440px;
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	.hero {
+		padding-top: 78px;
+		padding-bottom: 100px;
+	}
+
+	.heroDesc {
+		max-width: 595px;
+	}
+
+	.title {
+		font-size: 80px;
+	}
+
+	.heroImage {
+		max-width: 464px;
+	}
+
+	.socialsIcon {
+		top: 40px;
+		right: -40px;
+		width: 59px;
+		height: 59px;
+	}
+
+	.questionContainer {
+		top: 185px;
+		left: -40px;
+		font-size: 20px;
+		width: 50px;
+		height: 50px;
+	}
+
+	.totalContainer {
+		bottom: 75px;
+		left: -102px;
+		max-width: 311px;
+		padding: 32px;
+		border-radius: 30px;
+		gap: 16px;
+	}
+
+	.checkIconContainer {
+		padding: 12px;
+		border-radius: 15px;
+	}
+
+	.checkIcon {
+		width: 30px;
+		height: 30px;
+	}
+
+	.totalInfo {
+		gap: 8px;
+	}
+
+	.totalLabel {
+		font-size: 14px;
+	}
+
+	.totalValue {
+		font-size: 24px;
+	}
 }
