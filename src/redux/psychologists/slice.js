@@ -8,7 +8,7 @@ const initialState = {
 	lastKey: null,
 	hasMore: true,
 	pageSize: 3,
-	sortType: "desc",
+	sortType: "all",
 };
 
 const psychologistsSlice = createSlice({

@@ -36,13 +36,13 @@ const createQueryBySortType = (sortType, pageSize, lastKey = null) => {
 		case "more":
 			queryConstraints.push(orderByChild("price_per_hour"));
 			queryConstraints.push(limitToLast(pageSize));
-			if (lastKey) queryConstraints.push(endBefore(lastKey.value, lastKey.id)); 
+			if (lastKey) queryConstraints.push(endBefore(lastKey.value)); 
 			break;
 		
 		case "pop":
 			queryConstraints.push(orderByChild("rating"));
 			queryConstraints.push(limitToLast(pageSize));
-			if (lastKey) queryConstraints.push(endBefore(lastKey.value, lastKey.id));
+			if (lastKey) queryConstraints.push(endBefore(lastKey.value));
 			break;
 		
 		case "nopop":
