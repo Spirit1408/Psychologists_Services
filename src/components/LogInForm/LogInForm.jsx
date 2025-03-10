@@ -8,6 +8,26 @@ import { selectError, selectIsLoading } from "../../redux/auth/selectors";
 import { clearError } from "../../redux/auth/slice";
 import { login } from "../../redux/auth/operations";
 import toast from "react-hot-toast";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const validationSchema = yup.object().shape({
+	email: yup
+		.string()
+		.required("Email is required")
+		.matches(
+			/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+			"Email must contain @ and domain with a dot (Latin characters only)",
+		),
+	password: yup
+		.string()
+		.required("Password is required")
+		.min(6, "Password must be at least 6 characters")
+		.matches(
+			/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+			"Password must contain at least one uppercase letter, one number, and one special character",
+		),
+});
 
 export const LogInForm = ({ onSuccess }) => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +39,9 @@ export const LogInForm = ({ onSuccess }) => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm();
+	} = useForm({
+		resolver: yupResolver(validationSchema),
+	});
 
 	useEffect(() => {
 		return () => {
@@ -58,13 +80,7 @@ export const LogInForm = ({ onSuccess }) => {
 				<div className={css.inputsContainer}>
 					<div className={css.inputWrapper}>
 						<input
-							{...register("email", {
-								required: "Email is required",
-								pattern: {
-									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-									message: "Invalid email address",
-								},
-							})}
+							{...register("email")}
 							type="text"
 							placeholder="Email"
 							className={`${css.input} ${errors.email ? css.inputError : ""}`}
@@ -76,13 +92,7 @@ export const LogInForm = ({ onSuccess }) => {
 
 					<div className={css.inputPassContainer}>
 						<input
-							{...register("password", {
-								required: "Password is required",
-								minLength: {
-									value: 6,
-									message: "Password must be at least 6 characters",
-								},
-							})}
+							{...register("password")}
 							type={showPassword ? "text" : "password"}
 							placeholder="Password"
 							className={`${css.input} ${errors.password ? css.inputError : ""}`}

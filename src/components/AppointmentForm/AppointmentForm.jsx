@@ -1,10 +1,36 @@
 import css from "./AppointmentForm.module.css";
-import photo from "../../images/dummy/spec-photo.jpg";
 import clock from "../../images/clock.svg";
 import { useState, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 
-export const AppointmentForm = () => {
+const validationSchema = yup.object().shape({
+	name: yup
+		.string()
+		.required("Name is required")
+		.min(2, "Name must have at least 2 characters")
+		.matches(
+			/^[a-zA-Z]+$/,
+			"Name must contain only Latin characters without special symbols",
+		),
+	phone: yup
+		.string()
+		.required("Phone number is required")
+		.matches(/^\+?[0-9\s\-()]+$/, "Invalid phone number format"),
+	time: yup.string(),
+	email: yup
+		.string()
+		.required("Email is required")
+		.matches(
+			/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+			"Email must contain @ and domain with a dot (Latin characters only)",
+		),
+	comment: yup.string().optional(),
+});
+
+export const AppointmentForm = ({ specialist }) => {
 	const [showTimePicker, setShowTimePicker] = useState(false);
 	const timePickerRef = useRef(null);
 	const {
@@ -13,6 +39,7 @@ export const AppointmentForm = () => {
 		control,
 		formState: { errors },
 	} = useForm({
+		resolver: yupResolver(validationSchema),
 		defaultValues: {
 			name: "",
 			phone: "",
@@ -67,8 +94,7 @@ export const AppointmentForm = () => {
 	};
 
 	const onSubmit = (data) => {
-		console.log(data); // Handle form submission with the data
-		// Here you would typically dispatch an action to save the appointment
+		toast.success(`${data.name}, your appointment with ${specialist.name} at ${data.time} has been scheduled successfully!`);
 	};
 
 	return (
@@ -83,12 +109,12 @@ export const AppointmentForm = () => {
 
 			<div className={css.specInfo}>
 				<div className={css.specImageContainer}>
-					<img src={photo} alt="" />
+					<img src={specialist.avatar_url} alt="specialist face" />
 				</div>
 
 				<div className={css.specInfoContainer}>
 					<p className={css.specTitle}>Your psychologist</p>
-					<p className={css.specName}>Dr. Sarah Davis</p>
+					<p className={css.specName}>{specialist.name}</p>
 				</div>
 			</div>
 
@@ -96,9 +122,7 @@ export const AppointmentForm = () => {
 				<div className={css.inputsContainer}>
 					<div className={css.inputWrapper}>
 						<input
-							{...register("name", {
-								required: "Name is required",
-							})}
+							{...register("name")}
 							type="text"
 							placeholder="Name"
 							className={`${css.input} ${errors.name ? css.inputError : ""}`}
@@ -110,13 +134,7 @@ export const AppointmentForm = () => {
 
 					<div className={css.inputWrapper}>
 						<input
-							{...register("phone", {
-								required: "Phone number is required",
-								pattern: {
-									value: /^\+?[0-9\s\-()]+$/,
-									message: "Invalid phone number format",
-								},
-							})}
+							{...register("phone")}
 							type="tel"
 							placeholder="+380"
 							className={`${css.input} ${errors.phone ? css.inputError : ""}`}
@@ -166,13 +184,7 @@ export const AppointmentForm = () => {
 
 					<div className={css.inputWrapper}>
 						<input
-							{...register("email", {
-								required: "Email is required",
-								pattern: {
-									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-									message: "Invalid email address",
-								},
-							})}
+							{...register("email")}
 							type="text"
 							placeholder="Email"
 							className={`${css.input} ${errors.email ? css.inputError : ""}`}

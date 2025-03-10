@@ -8,6 +8,34 @@ import { selectError, selectIsLoading } from "../../redux/auth/selectors";
 import { registerUser } from "../../redux/auth/operations";
 import toast from "react-hot-toast";
 import { clearError } from "../../redux/auth/slice";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const validationSchema = yup.object().shape({
+	name: yup
+		.string()
+		.required("Name is required")
+		.min(2, "Name must have at least 2 characters")
+		.matches(
+			/^[a-zA-Z]+$/,
+			"Name must contain only Latin characters without special symbols",
+		),
+	email: yup
+		.string()
+		.required("Email is required")
+		.matches(
+			/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+			"Email must contain @ and domain with a dot (Latin characters only)",
+		),
+	password: yup
+		.string()
+		.required("Password is required")
+		.min(6, "Password must be at least 6 characters")
+		.matches(
+			/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+			"Password must contain at least one uppercase letter, one number, and one special character",
+		),
+});
 
 export const RegisterForm = ({ onSuccess }) => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -19,13 +47,15 @@ export const RegisterForm = ({ onSuccess }) => {
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm();
+	} = useForm({
+		resolver: yupResolver(validationSchema),
+	});
 
-	useEffect(()=>{
-		return ()=>{
+	useEffect(() => {
+		return () => {
 			dispatch(clearError());
-		}
-	}, [dispatch])
+		};
+	}, [dispatch]);
 
 	const togglePasswordVisibility = () => {
 		setShowPassword((prev) => !prev);

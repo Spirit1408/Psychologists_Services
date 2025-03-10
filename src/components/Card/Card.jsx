@@ -1,10 +1,13 @@
 import css from "./Card.module.css";
 import star from "../../images/rating.svg";
 import { useState } from "react";
+import { Modal } from "../Modal/Modal";
+import { AppointmentForm } from "../AppointmentForm/AppointmentForm";
 
 export const Card = ({ specialist }) => {
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [isReviewsOpen, setIsReviewsOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const isOnline = specialist.is_online;
 
 	const toggleFavorite = () => {
@@ -13,6 +16,14 @@ export const Card = ({ specialist }) => {
 
 	const toggleReviews = () => {
 		setIsReviewsOpen((prev) => !prev);
+	};
+
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const closeModal = () => {
+		setIsModalOpen(false);
 	};
 	
 	return (
@@ -120,10 +131,16 @@ export const Card = ({ specialist }) => {
 								))}
 						</ul>
 
-						<button type="button" className={css.makeAppBtn}>
+						<button type="button" className={css.makeAppBtn} onClick={openModal}>
 							Make an appointment
 						</button>
 					</div>
+				)}
+
+				{isModalOpen && (
+					<Modal onClose={closeModal}>
+						<AppointmentForm specialist={specialist} />
+					</Modal>
 				)}
 			</div>
 		</div>
