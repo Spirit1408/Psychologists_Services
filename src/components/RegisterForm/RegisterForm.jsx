@@ -1,15 +1,49 @@
 import css from "./RegisterForm.module.css";
 import eye from "../../images/eye.svg";
 import eyeOff from "../../images/eye-off.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { selectError, selectIsLoading } from "../../redux/auth/selectors";
+import { registerUser } from "../../redux/auth/operations";
+import toast from "react-hot-toast";
+import { clearError } from "../../redux/auth/slice";
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ onSuccess }) => {
 	const [showPassword, setShowPassword] = useState(false);
+	const dispatch = useDispatch();
+	const error = useSelector(selectError);
+	const isLoading = useSelector(selectIsLoading);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm();
+
+	useEffect(()=>{
+		return ()=>{
+			dispatch(clearError());
+		}
+	}, [dispatch])
 
 	const togglePasswordVisibility = () => {
 		setShowPassword((prev) => !prev);
 	};
 
+	const onSubmit = async (data) => {
+		try {
+			await dispatch(registerUser(data)).unwrap();
+
+			reset();
+
+			if (onSuccess) onSuccess();
+
+			toast.success("Registration successful");
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
 
 	return (
 		<>
@@ -20,30 +54,78 @@ export const RegisterForm = () => {
 				need some information. Please provide us with the following information.
 			</p>
 
-			<form>
-				<div className={css.inputsContainer}>
-                    <input type="text" placeholder="Name" className={css.input} />
+			{error && <p className={css.errorMessage}>{error}</p>}
 
-					<input type="text" placeholder="Email" className={css.input} />
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<div className={css.inputsContainer}>
+					<div className={css.inputWrapper}>
+						<input
+							{...register("name", {
+								required: "Name is required",
+								minLength: {
+									value: 2,
+									message: "Name must be at least 2 characters",
+								},
+							})}
+							type="text"
+							placeholder="Name"
+							className={`${css.input} ${errors.name ? css.inputError : ""}`}
+						/>
+						{errors.name && (
+							<p className={css.errorMessage}>{errors.name.message}</p>
+						)}
+					</div>
+
+					<div className={css.inputWrapper}>
+						<input
+							{...register("email", {
+								required: "Email is required",
+								pattern: {
+									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+									message: "Invalid email address",
+								},
+							})}
+							type="text"
+							placeholder="Email"
+							className={`${css.input} ${errors.email ? css.inputError : ""}`}
+						/>
+						{errors.email && (
+							<p className={css.errorMessage}>{errors.email.message}</p>
+						)}
+					</div>
 
 					<div className={css.inputPassContainer}>
 						<input
+							{...register("password", {
+								required: "Password is required",
+								minLength: {
+									value: 6,
+									message: "Password must be at least 6 characters",
+								},
+							})}
 							type={showPassword ? "text" : "password"}
 							placeholder="Password"
-							className={css.input}
+							className={`${css.input} ${errors.password ? css.inputError : ""}`}
 						/>
 
-						<button type="button" className={css.showPassBtn} onClick={togglePasswordVisibility}>
+						<button
+							type="button"
+							className={css.showPassBtn}
+							onClick={togglePasswordVisibility}
+						>
 							<img
 								src={showPassword ? eye : eyeOff}
 								alt={showPassword ? "eye" : "eye-off"}
 								className={css.showPassIcon}
 							/>
 						</button>
+						{errors.password && (
+							<p className={css.errorMessage}>{errors.password.message}</p>
+						)}
 					</div>
 				</div>
 
-				<button type="submit" className={css.submitBtn}>
+				<button type="submit" className={css.submitBtn} disabled={isLoading}>
 					Sign Up
 				</button>
 			</form>

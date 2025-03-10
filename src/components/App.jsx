@@ -5,12 +5,34 @@ import { Psychologists } from "../pages/Psychologists/Psychologists";
 import { Favorites } from "../pages/Favorites/Favorites";
 import { NotFoundPage } from "../pages/NotFoundPage/NotFoundPage";
 import { ThemeSwitcher } from "./ThemeSwitcher/ThemeSwitcher";
+import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsRefreshing, selectToken } from "../redux/auth/selectors";
+import { useEffect } from "react";
+import { refreshUser } from "../redux/auth/operations";
+import { PuffLoader } from "react-spinners";
 
 export const App = () => {
+	const dispatch = useDispatch();
+	const isRefreshing = useSelector(selectIsRefreshing);
+	const token = useSelector(selectToken);
+
+	useEffect(() => {
+		if (token) dispatch(refreshUser());
+	}, [dispatch, token]);
+
+	if (isRefreshing) {
+		return (
+			<PuffLoader
+				color="var(--accent-color)"
+				cssOverride={{ margin: "0 auto" }}
+			/>
+		);
+	}
+
 	return (
 		<>
 			<Header />
-
 			<main>
 				<Routes>
 					<Route path="/" element={<Home />} />
@@ -19,8 +41,8 @@ export const App = () => {
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</main>
-
 			<ThemeSwitcher />
+			<Toaster position="bottom-left" />{" "}
 		</>
 	);
 };

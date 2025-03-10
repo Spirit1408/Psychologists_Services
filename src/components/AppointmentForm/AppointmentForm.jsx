@@ -2,11 +2,25 @@ import css from "./AppointmentForm.module.css";
 import photo from "../../images/dummy/spec-photo.jpg";
 import clock from "../../images/clock.svg";
 import { useState, useRef, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 
 export const AppointmentForm = () => {
 	const [showTimePicker, setShowTimePicker] = useState(false);
-	const [selectedTime, setSelectedTime] = useState("00:00");
 	const timePickerRef = useRef(null);
+	const {
+		register,
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm({
+		defaultValues: {
+			name: "",
+			phone: "",
+			time: "09:00",
+			email: "",
+			comment: "",
+		},
+	});
 
 	const timeOptions = [
 		"09 : 00",
@@ -46,9 +60,15 @@ export const AppointmentForm = () => {
 		};
 	}, []);
 
-	const handleTimeSelect = (time) => {
-		setSelectedTime(time.replace(/ : /g, ":"));
+	const handleTimeSelect = (time, onChange) => {
+		const formattedTime = time.replace(/ : /g, ":");
+		onChange(formattedTime);
 		setShowTimePicker(false);
+	};
+
+	const onSubmit = (data) => {
+		console.log(data); // Handle form submission with the data
+		// Here you would typically dispatch an action to save the appointment
 	};
 
 	return (
@@ -72,47 +92,103 @@ export const AppointmentForm = () => {
 				</div>
 			</div>
 
-			<form>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className={css.inputsContainer}>
-					<input type="text" placeholder="Name" className={css.input} />
-
-					<input type="phone" placeholder="+380" className={css.input} />
-
-					<div className={css.timePickerContainer} ref={timePickerRef}>
-						<div
-							className={css.timeInput}
-							onClick={() => setShowTimePicker(!showTimePicker)}
-						>
-							<p className={css.selectedTime}>{selectedTime}</p>
-
-                            <img src={clock} className={css.clockIcon} alt="clock icon" />
-						</div>
-
-						{showTimePicker && (
-							<div className={css.timePickerDropdown}>
-								<p className={css.dropdownTitle}>Meeting time</p>
-
-								<div className={css.timeOptionsList}>
-									{timeOptions.map((time) => (
-										<div
-											key={time}
-											className={`${css.timeOption} ${selectedTime === time ? css.selectedTimeOption : ""}`}
-											onClick={() => handleTimeSelect(time)}
-										>
-											{time}
-										</div>
-									))}
-								</div>
-							</div>
+					<div className={css.inputWrapper}>
+						<input
+							{...register("name", {
+								required: "Name is required",
+							})}
+							type="text"
+							placeholder="Name"
+							className={`${css.input} ${errors.name ? css.inputError : ""}`}
+						/>
+						{errors.name && (
+							<p className={css.errorMessage}>{errors.name.message}</p>
 						)}
 					</div>
 
-					<input type="text" placeholder="Email" className={css.input} />
+					<div className={css.inputWrapper}>
+						<input
+							{...register("phone", {
+								required: "Phone number is required",
+								pattern: {
+									value: /^\+?[0-9\s\-()]+$/,
+									message: "Invalid phone number format",
+								},
+							})}
+							type="tel"
+							placeholder="+380"
+							className={`${css.input} ${errors.phone ? css.inputError : ""}`}
+						/>
+						{errors.phone && (
+							<p className={css.errorMessage}>{errors.phone.message}</p>
+						)}
+					</div>
 
-					<textarea
-						placeholder="Comment"
-						className={`${css.input} ${css.comment}`}
+					<Controller
+						name="time"
+						control={control}
+						rules={{ required: "Please select a time" }}
+						render={({ field: { onChange, value } }) => (
+							<div className={css.timePickerContainer} ref={timePickerRef}>
+								<div
+									className={`${css.timeInput} ${errors.time ? css.inputError : ""}`}
+									onClick={() => setShowTimePicker(!showTimePicker)}
+								>
+									<p className={css.selectedTime}>{value}</p>
+									<img src={clock} className={css.clockIcon} alt="clock icon" />
+								</div>
+
+								{showTimePicker && (
+									<div className={css.timePickerDropdown}>
+										<p className={css.dropdownTitle}>Meeting time</p>
+
+										<div className={css.timeOptionsList}>
+											{timeOptions.map((time) => (
+												<div
+													key={time}
+													className={`${css.timeOption} ${value === time.replace(/ : /g, ":") ? css.selectedTimeOption : ""}`}
+													onClick={() => handleTimeSelect(time, onChange)}
+												>
+													{time}
+												</div>
+											))}
+										</div>
+									</div>
+								)}
+								{errors.time && (
+									<p className={css.errorMessage}>{errors.time.message}</p>
+								)}
+							</div>
+						)}
 					/>
+
+					<div className={css.inputWrapper}>
+						<input
+							{...register("email", {
+								required: "Email is required",
+								pattern: {
+									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+									message: "Invalid email address",
+								},
+							})}
+							type="text"
+							placeholder="Email"
+							className={`${css.input} ${errors.email ? css.inputError : ""}`}
+						/>
+						{errors.email && (
+							<p className={css.errorMessage}>{errors.email.message}</p>
+						)}
+					</div>
+
+					<div className={css.inputWrapper}>
+						<textarea
+							{...register("comment")}
+							placeholder="Comment"
+							className={`${css.input} ${css.comment}`}
+						/>
+					</div>
 				</div>
 
 				<button type="submit" className={css.submitBtn}>
