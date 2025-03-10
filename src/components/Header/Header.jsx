@@ -2,8 +2,13 @@ import css from "./Header.module.css";
 import { Auth } from "../Auth/Auth";
 import { UserInfo } from "../UserInfo/UserInfo";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors";
 
 export const Header = () => {
+	const isLoggedIn = useSelector(selectIsLoggedIn);
+	const user = useSelector(selectUser);
+
 	return (
 		<header className={css.header}>
 			<p className={css.logo}>
@@ -45,9 +50,7 @@ export const Header = () => {
 				</ul>
 			</nav>
 
-			<Auth />
-
-			{/* <UserInfo /> */}
+			{isLoggedIn ? <UserInfo user={user} /> : <Auth />}
 		</header>
 	);
 };

@@ -20,6 +20,7 @@
 	width: 100%;
 	padding: 16px 18px;
 	outline: none;
+	font-size: 16px;
 	border: 1px solid rgba(25, 26, 21, 0.1);
 	border-radius: 12px;
 	background-color: transparent;
@@ -60,6 +61,7 @@
 	display: block;
 	width: 100%;
 	padding: 16px;
+	font-size: 16px;
 	background-color: var(--accent-color);
 	border-radius: 30px;
 	color: var(--secondary-color);
