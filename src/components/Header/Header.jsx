@@ -37,16 +37,18 @@ export const Header = () => {
 							Psychologists
 						</NavLink>
 					</li>
-					{isLoggedIn && <li>
-						<NavLink
-							to="/favorites"
-							className={({ isActive }) =>
-								isActive ? `${css.navlink} ${css.active}` : `${css.navlink}`
-							}
-						>
-							Favorites
-						</NavLink>
-					</li>}
+					{isLoggedIn && (
+						<li>
+							<NavLink
+								to="/favorites"
+								className={({ isActive }) =>
+									isActive ? `${css.navlink} ${css.active}` : `${css.navlink}`
+								}
+							>
+								Favorites
+							</NavLink>
+						</li>
+					)}
 				</ul>
 			</nav>
 
