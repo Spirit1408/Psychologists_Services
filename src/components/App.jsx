@@ -11,6 +11,7 @@ import { selectIsRefreshing, selectToken } from "../redux/auth/selectors";
 import { useEffect } from "react";
 import { refreshUser } from "../redux/auth/operations";
 import { PuffLoader } from "react-spinners";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -37,7 +38,7 @@ export const App = () => {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/psychologists" element={<Psychologists />} />
-					<Route path="/favorites" element={<Favorites />} />
+					<Route path="/favorites" element={<PrivateRoute component={<Favorites />} />} />
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>
 			</main>

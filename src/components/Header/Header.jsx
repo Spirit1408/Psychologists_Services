@@ -37,7 +37,7 @@ export const Header = () => {
 							Psychologists
 						</NavLink>
 					</li>
-					<li>
+					{isLoggedIn && <li>
 						<NavLink
 							to="/favorites"
 							className={({ isActive }) =>
@@ -46,7 +46,7 @@ export const Header = () => {
 						>
 							Favorites
 						</NavLink>
-					</li>
+					</li>}
 				</ul>
 			</nav>
 
