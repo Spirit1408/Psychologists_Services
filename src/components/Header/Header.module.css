@@ -1,15 +1,18 @@
 .header {
+	position: relative;
 	padding-top: 16px;
 	padding-bottom: 16px;
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, auto));
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
 	&::after {
 		content: "";
 		position: absolute;
-		top: 96px;
-		left: 0;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
 		width: 100vw;
 		height: 1px;
 		background-color: rgba(25, 26, 21, 10%);
