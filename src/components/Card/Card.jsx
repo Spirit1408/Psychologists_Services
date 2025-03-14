@@ -3,15 +3,31 @@ import star from "../../images/rating.svg";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import { AppointmentForm } from "../AppointmentForm/AppointmentForm";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { selectIsFavorite } from "../../redux/favorites/selectors";
+import { removeFromFavorites, addToFavorites } from "../../redux/favorites/slice";
+import { toast } from "react-hot-toast";
 
 export const Card = ({ specialist }) => {
-	const [isFavorite, setIsFavorite] = useState(false);
+	const dispatch = useDispatch();
+	const isLoggedIn = useSelector(selectIsLoggedIn);
+	const isFavorite = useSelector((state) => selectIsFavorite(state, specialist.id));
 	const [isReviewsOpen, setIsReviewsOpen] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const isOnline = specialist.is_online;
 
 	const toggleFavorite = () => {
-		setIsFavorite((prev) => !prev);
+		if (!isLoggedIn) {
+			toast.error("Please register or log in to add specialist to your favorites");
+			return;
+		}
+
+		if (isFavorite) {
+			dispatch(removeFromFavorites(specialist.id));
+		} else {
+			dispatch(addToFavorites(specialist));
+		}
 	};
 
 	const toggleReviews = () => {

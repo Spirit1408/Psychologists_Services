@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectSortType } from "./../../redux/psychologists/selectors";
 import { setSortType } from "./../../redux/psychologists/slice";
 
-export const Filter = () => {
+export const Filter = ({ onSortChange, currentSort = "all" }) => {
 	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
-	const selectedOption = useSelector(selectSortType);
+	const mainSortType = useSelector(selectSortType);
+	const selectedOption = onSortChange ? currentSort : mainSortType;
 	const dropdownRef = useRef(null);
 
 	const options = [
@@ -25,8 +26,12 @@ export const Filter = () => {
 		setIsOpen(!isOpen);
 	};
 
-	const handleOptionClick = (value) => {
-		dispatch(setSortType(value));
+	const handleOptionClick = (sortType) => {
+		if (onSortChange) {
+			onSortChange(sortType);
+		} else {
+			dispatch(setSortType(sortType));
+		}
 		setIsOpen(false);
 	};
 
