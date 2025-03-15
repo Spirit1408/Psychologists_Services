@@ -32,7 +32,7 @@ export function Home() {
 				<div className={css.totalContainer}>
 					<div className={css.checkIconContainer}>
 						<svg className={css.checkIcon}>
-							<use href={"./src/images/sprite.svg#icon-check"}></use>
+							<use href="../src/images/sprite.svg#icon-check"></use>
 						</svg>
 					</div>
 
