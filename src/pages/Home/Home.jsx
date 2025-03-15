@@ -17,7 +17,7 @@ export function Home() {
 					guide in your own life with the help of our experienced psychologists.
 				</p>
 
-				<a href="#" className={css.heroLink}>
+				<a href="/psychologists" className={css.heroLink}>
 					Get started <img src={Arrow} alt="arrow icon" />
 				</a>
 			</div>
@@ -32,7 +32,7 @@ export function Home() {
 				<div className={css.totalContainer}>
 					<div className={css.checkIconContainer}>
 						<svg className={css.checkIcon}>
-							<use href="src/images/sprite.svg#icon-check"></use>
+							<use href={"./src/images/sprite.svg#icon-check"}></use>
 						</svg>
 					</div>
 
