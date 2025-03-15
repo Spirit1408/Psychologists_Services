@@ -20,7 +20,7 @@ export const UserInfo = ({ user }) => {
 			<div className={css.userInfo}>
 				<div className={css.iconContainer}>
 					<svg className={css.icon}>
-						<use href="../src/images/sprite.svg#icon-user" />
+						<use href="/images/sprite.svg#icon-user" />
 					</svg>
 				</div>
 

@@ -1,5 +1,4 @@
 import css from "./Card.module.css";
-import star from "../../images/rating.svg";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import { AppointmentForm } from "../AppointmentForm/AppointmentForm";
@@ -19,7 +18,7 @@ export const Card = ({ specialist }) => {
 
 	const toggleFavorite = () => {
 		if (!isLoggedIn) {
-			toast.info("Please register or log in to add specialist to your favorites");
+			toast.error("Please register or log in to add specialist to your favorites");
 			return;
 		}
 
@@ -62,7 +61,7 @@ export const Card = ({ specialist }) => {
 
 					<div className={css.specInfoNum}>
 						<p className={css.rating}>
-							<img src={star} alt="rating icon" className={css.rating} />
+							<img src="images/rating.svg" alt="rating icon" className={css.rating} />
 							Rating: {specialist.rating}
 						</p>
 
@@ -80,7 +79,7 @@ export const Card = ({ specialist }) => {
 									isFavorite ? `${css.favIcon} ${css.active}` : css.favIcon
 								}
 							>
-								<use href="src/images/sprite.svg#icon-heart" />
+								<use href="images/sprite.svg#icon-heart" />
 							</svg>
 						</button>
 					</div>
@@ -136,7 +135,7 @@ export const Card = ({ specialist }) => {
 											<div className={css.revInfo}>
 												<p className={css.revName}>{review.reviewer}</p>
 												<p className={css.revRating}>
-													<img src={star} alt="rating icon" />
+													<img src="images/rating.svg" alt="rating icon" />
 													{review.rating}
 												</p>
 											</div>

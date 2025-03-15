@@ -1,5 +1,4 @@
 import css from "./Modal.module.css";
-import close from "../../images/close.svg";
 import { useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 
@@ -33,7 +32,7 @@ export const Modal = ({ children, onClose }) => {
 		<div className={css.modalContainer} onClick={handleBackdropClick}>
 			<div className={css.modal}>
 				<button type="button" className={css.close} onClick={onClose}>
-					<img src={close} alt="close icon" />
+					<img src="/images/close.svg" alt="close icon" />
 				</button>
 				{children}
 			</div>

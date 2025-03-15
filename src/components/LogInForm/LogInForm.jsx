@@ -1,6 +1,4 @@
 import css from "./LogInForm.module.css";
-import eyeOff from "../../images/eye-off.svg";
-import eye from "../../images/eye.svg";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -100,7 +98,7 @@ export const LogInForm = ({ onSuccess }) => {
 							onClick={togglePasswordVisibility}
 						>
 							<img
-								src={showPassword ? eye : eyeOff}
+								src={showPassword ? "/images/eye.svg" : "/images/eye-off.svg"}
 								alt={showPassword ? "eye icon" : "close eye icon"}
 								className={css.showPassIcon}
 							/>

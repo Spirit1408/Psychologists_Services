@@ -1,5 +1,4 @@
 import css from "./AppointmentForm.module.css";
-import clock from "../../images/clock.svg";
 import { useState, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
@@ -155,7 +154,7 @@ export const AppointmentForm = ({ specialist }) => {
 									onClick={() => setShowTimePicker(!showTimePicker)}
 								>
 									<p className={css.selectedTime}>{value}</p>
-									<img src={clock} className={css.clockIcon} alt="clock icon" />
+									<img src="./images/clock.svg" className={css.clockIcon} alt="clock icon" />
 								</div>
 
 								{showTimePicker && (

@@ -1,7 +1,4 @@
 import css from "./Home.module.css";
-import Arrow from "../../images/arrow.svg";
-import heroImage from "../../images/hero.jpg";
-import socialsIcon from "../../images/socials.svg";
 
 export function Home() {
 	return (
@@ -18,21 +15,21 @@ export function Home() {
 				</p>
 
 				<a href="/psychologists" className={css.heroLink}>
-					Get started <img src={Arrow} alt="arrow icon" />
+					Get started <img src="./images/arrow.svg" alt="arrow icon" />
 				</a>
 			</div>
 
 			<div className={css.heroImg}>
-				<img src={heroImage} alt="hero cover" className={css.heroImage} />
+				<img src="./images/hero.jpg" alt="hero cover" className={css.heroImage} />
 
-				<img src={socialsIcon} alt="socials icon" className={css.socialsIcon} />
+				<img src="./images/socials.svg" alt="socials icon" className={css.socialsIcon} />
 
 				<div className={css.questionContainer}>?</div>
 
 				<div className={css.totalContainer}>
 					<div className={css.checkIconContainer}>
 						<svg className={css.checkIcon}>
-							<use href="../src/images/sprite.svg#icon-check"></use>
+							<use href="images/sprite.svg#icon-check"></use>
 						</svg>
 					</div>
 

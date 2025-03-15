@@ -1,5 +1,4 @@
 import css from "./Filter.module.css";
-import arrow from "../../images/select-arrow.svg";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSortType } from "./../../redux/psychologists/selectors";
@@ -64,7 +63,7 @@ export const Filter = ({ onSortChange, currentSort = "all" }) => {
 
 					<img
 						className={`${css.arrow} ${isOpen ? css.active : ""}`}
-						src={arrow}
+						src="images/arrow.svg"
 						alt="arrow icon"
 					/>
 				</div>
