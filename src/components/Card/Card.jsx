@@ -6,7 +6,7 @@ import { AppointmentForm } from "../AppointmentForm/AppointmentForm";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { selectIsFavorite } from "../../redux/favorites/selectors";
-import { removeFromFavorites, addToFavorites } from "../../redux/favorites/slice";
+import { removeFromFavorites, addToFavorites } from "../../redux/favorites/operations";
 import { toast } from "react-hot-toast";
 
 export const Card = ({ specialist }) => {
@@ -19,7 +19,7 @@ export const Card = ({ specialist }) => {
 
 	const toggleFavorite = () => {
 		if (!isLoggedIn) {
-			toast.error("Please register or log in to add specialist to your favorites");
+			toast.info("Please register or log in to add specialist to your favorites");
 			return;
 		}
 

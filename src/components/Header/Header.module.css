@@ -2,8 +2,7 @@
 	position: relative;
 	padding-top: 16px;
 	padding-bottom: 16px;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
@@ -117,5 +116,12 @@
 			width: 8px;
 			height: 8px;
 		}
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.header {
+		flex-direction: column;
+		gap: 20px;
 	}
 }

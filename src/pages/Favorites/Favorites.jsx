@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectFavorites, selectIsLoading, selectError, selectSortType, selectPageSize } from "../../redux/favorites/selectors";
 import { useEffect, useState } from "react";
 import { setSortType } from "../../redux/favorites/slice";
+import { getFavorites } from "../../redux/favorites/operations";
 
 export function Favorites() {
 	const dispatch = useDispatch();
@@ -18,7 +19,11 @@ export function Favorites() {
 	const [displayedFavorites, setDisplayedFavorites] = useState([]);
 	const [hasMore, setHasMore] = useState(true);
 
-	useEffect(()=>{
+	useEffect(() => {
+		dispatch(getFavorites());
+	}, [dispatch]);
+	
+	useEffect(() => {
 		let sortedFavorites = [...favorites];
 
 		switch(sortType) {
