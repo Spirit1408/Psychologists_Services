@@ -11,8 +11,8 @@ const validationSchema = yup.object().shape({
 		.required("Name is required")
 		.min(2, "Name must have at least 2 characters")
 		.matches(
-			/^[a-zA-Z]+$/,
-			"Name must contain only Latin characters without special symbols",
+			/^[a-zA-Z\s]+$/,
+			"Name must contain only Latin characters and spaces, without special symbols",
 		),
 	phone: yup
 		.string()

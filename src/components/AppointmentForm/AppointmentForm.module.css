@@ -90,6 +90,7 @@
 .comment {
 	height: 116px;
 	resize: none;
+	font-family: inherit;
 }
 
 .timePickerContainer {
